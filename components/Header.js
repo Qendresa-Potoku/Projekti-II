@@ -2,14 +2,16 @@ export function initHeader(div) {
   const user_is_loggedin = localStorage.getItem("loggedin_user");
   let links = "";
   let user = "Guest";
-  let icons = "";
+  let favicon = "";
+  let shopicon = "";
 
   if (user_is_loggedin == null) {
     links = `
       <li><a class="dropdown-item" href="login.html">Login</a></li>
       <li><a class="dropdown-item" href="register.html">Register</a></li>
     `;
-    icons = ``;
+    favicon = ``;
+    shopicon = ``;
   } else {
     user = user_is_loggedin;
     links = `
@@ -17,13 +19,13 @@ export function initHeader(div) {
       <li><hr class="dropdown-divider" /></li>
       <li><a class="dropdown-item" id="logout" href="#">Logout</a></li>
     `;
-    icons = `<div class="me-10 d-flex flex-row justify-content-center">
-            <li class="nav-item p-2" >
+
+    favicon = `
           <a href="favourites.html" class="btn btn-primary"><i class="bi bi-heart-fill"></i></a>
-        </li> 
-        <li class="nav-item p-2">
+        `;
+    shopicon = ` 
           <a href="shopbag.html" class="btn btn-primary"><i class="bi bi-bag-fill"></i></a>
-        </li></div>`;
+        `;
   }
   div.innerHTML = `
   
@@ -69,7 +71,12 @@ export function initHeader(div) {
             ${links}
             </ul>
             </li>
-            ${icons}
+            <div class="me-10 d-flex flex-row justify-content-center">
+            <li class="nav-item p-2" >
+            ${favicon} </li>
+            <li class="nav-item p-2" >
+            ${shopicon} </li>
+        </div>
           </ul>
           <form  class="d-none ms-5" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />

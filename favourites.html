@@ -20,160 +20,97 @@
     <header></header>
 
     <section class="favourites py-5">
-      <div class="container">
-        <h1>My Favorites</h1>
-        <div id="favorites-list" class="row"></div>
-      </div>
+      <h1>Your Favorite Products</h1>
+      <div id="favorites"></div>
     </section>
 
     <footer></footer>
-
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
-    <script src="./assets/js/dynamicListener.min.js"></script>
-
     <script type="module">
       import { initHeader } from "./components/Header.js";
+      import { getProducts, composeProducts } from "./components/Products.js";
       import { initFooter } from "./components/Footer.js";
 
       initHeader(document.querySelector("header"));
       initFooter(document.querySelector("footer"));
 
       const user_is_loggedin = localStorage.getItem("loggedin_user");
-
       if (user_is_loggedin == null) {
         window.location.href = "http://127.0.0.1:5500/login.html";
       }
 
-      // const favourites =
-      //   localStorage.getItem("favourites") == null
-      //     ? []
-      //     : JSON.parse(localStorage.getItem("favourites"));
+      document.addEventListener("DOMContentLoaded", function () {
+        const favoritesDiv = document.getElementById("favorites");
+        let favorites = localStorage.getItem("favorites");
+        favorites = favorites ? JSON.parse(favorites) : [];
 
-      // if (favourites.length > 0) {
-      //   let html = `<div class="row">`;
-
-      //   for (let product of favourites) {
-      //     html += `
-      //           <div class="col-3">
-      //               <div class="card mb-4">
-      //                   <img src="${
-      //                     product.api_featured_image
-      //                   }" class="card-img-top" alt="${product.name}">
-      //                   <div class="card-body">
-      //                       <h5 class="card-title">${product.name}</h5>
-      //                       <div class="d-flex justify-content-between align-items-center">
-      //                           <p class="card-text">
-      //                               <i class="bi bi-fire"></i> ${
-      //                                 product.price_sign + product.price
-      //                               }
-      //                               <br />
-      //                               <i class="bi bi-bar-chart"></i> ${
-      //                                 product.category
-      //                               }
-      //                           </p>
-      //                           <div>
-      //                                         <a href="product.html?id=${
-      //                                           product.id
-      //                                         }" class="btn btn-primary"><i class="bi bi-heart-fill"></i></a>
-      //     <a href="product.html?id=${
-      //       product.id
-      //     }" class="btn btn-primary" style="float: right;"><i class="bi bi-bag-fill"></i></a>
-      //     <button product-id="${
-      //       product.id
-      //     }" class="btn btn-sm btn-outline-danger btn-delete"><i class="bi bi-trash"></i></button>
-      //                           </div>
-      //                       </div>
-      //                   </div>
-      //               </div>
-      //           </div>
-      //           `;
-      //   }
-
-      //   html += `</div>`;
-
-      //   document.querySelector("#favourites").innerHTML = html;
-      // } else {
-      //   document.querySelector("#favourites").innerHTML =
-      //     "Favourites list is empty!";
-      // }
-
-      // // delete movie from favourites
-      // addDynamicEventListener(
-      //   document.body,
-      //   "click",
-      //   ".btn-delete",
-      //   function (e) {
-      //     const id = e.target.getAttribute("movie-id");
-      //     const rem_favourites = favourites.filter((movie) => movie.id != id);
-      //     localStorage.setItem(
-      //       "favourites",
-      //       JSON.stringify([...rem_favourites])
-      //     );
-      //     window.location.href = "http://127.0.0.1:5500/dashboard.html";
-      //   }
-      // );
-
-      // Assuming the favorite products are stored in the localStorage as a JSON string
-      const favoriteProducts =
-        JSON.parse(localStorage.getItem("favoriteProducts")) || [];
-
-      function displayFavoriteProducts() {
-        const favoriteProductsContainer =
-          document.querySelector("#favorites-list");
-        favoriteProductsContainer.innerHTML = "";
-
-        if (favoriteProducts.length === 0) {
-          favoriteProductsContainer.innerHTML =
-            "<p>No favorite products found.</p>";
-          return;
-        }
-
-        favoriteProducts.forEach((product) => {
-          const productContainer = document.createElement("div");
-          productContainer.classList.add("col-3");
-          productContainer.innerHTML = `
-      <div class="card mb-4">
-        <img src="${product.api_featured_image}" class="card-img-top" alt="${product.name}">
-        <div class="card-body">
-          <h5 class="card-title">${product.name}</h5>
-          <p class="card-text">
-            <i class="bi bi-fire"></i> ${product.price_sign} ${product.price}
-            <br />
-            <i class="bi bi-bar-chart"></i> ${product.category}
-          </p>
-          <div>
-            <button class="btn btn-sm btn-outline-danger btn-delete" data-product-id="${product.id}">
-              <i class="bi bi-trash"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-    `;
-          favoriteProductsContainer.appendChild(productContainer);
-        });
-
-        // Add event listener to delete a favorite product from the list
-        const deleteButtons = document.querySelectorAll(".btn-delete");
-        // Update the part where you're adding the event listener for the delete button
-        document.addEventListener("click", function (e) {
-          if (e.target.classList.contains("btn-delete")) {
-            const productId = e.target.getAttribute("data-product-id");
-            favoriteProducts = favoriteProducts.filter(
-              (product) => product.id !== productId
-            );
-            localStorage.setItem(
-              "favoriteProducts",
-              JSON.stringify(favoriteProducts)
-            );
-            displayFavoriteProducts();
+        const productCounts = {};
+        favorites.forEach(function (product) {
+          if (product.id in productCounts) {
+            productCounts[product.id]++;
+          } else {
+            productCounts[product.id] = 1;
           }
         });
+
+        const uniqueFavorites = [];
+        favorites.forEach(function (product) {
+          const count = productCounts[product.id];
+          if (!uniqueFavorites.some((item) => item.id === product.id)) {
+            uniqueFavorites.push({ ...product, count });
+          }
+        });
+
+        uniqueFavorites.forEach(function (product) {
+          const productElement = document.createElement("div");
+          productElement.innerHTML = `
+      <div>
+        <h2>${product.name}</h2>
+        <p>Price: ${product.price}</p>
+        <p class="count">Count: ${product.count}</p>
+        <button class="deleteButton" data-product-id="${product.id}">Delete</button>
+      </div>
+    `;
+          favoritesDiv.appendChild(productElement);
+
+          const deleteButton = productElement.querySelector(".deleteButton");
+          deleteButton.addEventListener("click", function () {
+            const countElement = productElement.querySelector(".count");
+            const count = parseInt(
+              countElement.textContent.split(":")[1].trim(),
+              10
+            );
+
+            if (count === 1) {
+              deleteProductFromFavorites(product.id);
+              favoritesDiv.removeChild(productElement);
+            } else {
+              countElement.textContent = `Count: ${count - 1}`;
+              decrementProductCount(product.id);
+            }
+          });
+        });
+      });
+
+      function decrementProductCount(productId) {
+        let favorites = localStorage.getItem("favorites");
+        favorites = favorites ? JSON.parse(favorites) : [];
+        const updatedFavorites = favorites.map((product) => {
+          if (product.id === productId && product.count > 0) {
+            return { ...product, count: product.count - 1 };
+          }
+          return product;
+        });
+        localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
       }
-      displayFavoriteProducts();
+      //delete product from favorites
+      function deleteProductFromFavorites(productId) {
+        let favorites = localStorage.getItem("favorites");
+        favorites = favorites ? JSON.parse(favorites) : [];
+        const updatedFavorites = favorites.filter(
+          (product) => product.id !== productId
+        );
+        localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+      }
 
       // logout
       addDynamicEventListener(document.body, "click", "#logout", function (e) {

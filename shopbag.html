@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShopBag</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body>
+    <header></header>
+
+    <section class="bag py-5">
+      <h1>Your Bag Products</h1>
+      <div id="bag"></div>
+    </section>
+
+    <footer></footer>
+    <script type="module">
+      import { initHeader } from "./components/Header.js";
+      import { getProducts, composeProducts } from "./components/Products.js";
+      import { initFooter } from "./components/Footer.js";
+
+      initHeader(document.querySelector("header"));
+      initFooter(document.querySelector("footer"));
+
+      const user_is_loggedin = localStorage.getItem("loggedin_user");
+      if (user_is_loggedin == null) {
+        window.location.href = "http://127.0.0.1:5500/login.html";
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const bagDiv = document.getElementById("bag");
+        let bag = localStorage.getItem("bag");
+        bag = bag ? JSON.parse(bag) : [];
+
+        const productCounts = {};
+        bag.forEach(function (product) {
+          if (product.id in productCounts) {
+            productCounts[product.id]++;
+          } else {
+            productCounts[product.id] = 1;
+          }
+        });
+
+        const uniqueProdBag = [];
+        bag.forEach(function (product) {
+          const count = productCounts[product.id];
+          if (!uniqueProdBag.some((item) => item.id === product.id)) {
+            uniqueProdBag.push({ ...product, count });
+          }
+        });
+
+        uniqueProdBag.forEach(function (product) {
+          const productElement = document.createElement("div");
+          productElement.innerHTML = `
+      <div>
+        <h2>${product.name}</h2>
+        <p>Price: ${product.price}</p>
+        <p class="count">Count: ${product.count}</p>
+        <button class="deleteButton" data-product-id="${product.id}">Delete</button>
+      </div>
+    `;
+          bagDiv.appendChild(productElement);
+
+          //delete from bag
+          const deleteButton = productElement.querySelector(".deleteButton");
+          deleteButton.addEventListener("click", function () {
+            const countElement = productElement.querySelector(".count");
+            const count = parseInt(
+              countElement.textContent.split(":")[1].trim(),
+              10
+            );
+
+            if (count === 1) {
+              deleteProductFromBag(product.id);
+              bagDiv.removeChild(productElement);
+            } else {
+              countElement.textContent = `Count: ${count - 1}`;
+              decrementProductCount(product.id);
+            }
+          });
+        });
+      });
+
+      function decrementProductCount(productId) {
+        let bag = localStorage.getItem("bag");
+        bag = bag ? JSON.parse(bag) : [];
+        const updatedBag = bag.map((product) => {
+          if (product.id === productId && product.count > 0) {
+            return { ...product, count: product.count - 1 };
+          }
+          return product;
+        });
+        localStorage.setItem("bag", JSON.stringify(updatedBag));
+      }
+
+      function deleteProductFromBag(productId) {
+        let bag = localStorage.getItem("bag");
+        bag = bag ? JSON.parse(bag) : [];
+        const updatedBag = bag.filter((product) => product.id !== productId);
+        localStorage.setItem("bag", JSON.stringify(updatedBag));
+      }
+
+      // logout
+      addDynamicEventListener(document.body, "click", "#logout", function (e) {
+        e.preventDefault();
+        localStorage.removeItem("loggedin_user");
+        window.location.href = "http://127.0.0.1:5500/index.html";
+      });
+    </script>
+  </body>
+</html>
