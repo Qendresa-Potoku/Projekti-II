@@ -4,6 +4,8 @@ export function initHeader(div) {
   let user = "Guest";
   let favicon = "";
   let shopicon = "";
+  let home = "";
+  let logo = "";
 
   if (user_is_loggedin == null) {
     links = `
@@ -12,6 +14,11 @@ export function initHeader(div) {
     `;
     favicon = ``;
     shopicon = ``;
+    home = `<a class="nav-link" href="index.html">
+                Home
+              </a>`;
+    logo = `   <a href="index.html">
+        <img src="./assets/img/logo.png" alt="Gabrini Logo" /></a>`;
   } else {
     user = user_is_loggedin;
     links = `
@@ -26,13 +33,17 @@ export function initHeader(div) {
     shopicon = ` 
           <a href="shopbag.html" class="btn btn-primary"><i class="bi bi-bag-fill"></i></a>
         `;
+    home = `<a class="nav-link" href="dashboard.html">
+                Home
+              </a>`;
+    logo = `   <a href="dashboard.html">
+        <img src="./assets/img/logo.png" alt="Gabrini Logo" /></a>`;
   }
   div.innerHTML = `
   
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-      <a href="index.html">
-        <img src="./assets/img/logo.png" alt="Gabrini Logo" /></a>
+     ${logo}
         <button
           class="navbar-toggler"
           type="button"
@@ -47,9 +58,7 @@ export function initHeader(div) {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto me-5">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">
-                Home
-              </a>
+              ${home}
             </li>
             <li class="nav-item">
               <a class="nav-link" href="products.html">
