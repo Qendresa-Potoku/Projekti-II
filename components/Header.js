@@ -40,8 +40,7 @@ export function initHeader(div) {
         <img src="./assets/img/logo.png" alt="Gabrini Logo" /></a>`;
   }
   div.innerHTML = `
-  
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg ">
       <div class="container-fluid">
      ${logo}
         <button
@@ -94,5 +93,6 @@ export function initHeader(div) {
         </div>
       </div>
     </nav>
+    
   `;
 }

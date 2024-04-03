@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
 .products #expolore-btn {
   width: 150px;
 }
@@ -54,4 +55,123 @@ header form {
 }
 a {
   text-decoration: none;
+}
+header {
+  height: 17vh;
+  background: #060708;
+}
+.navbar-collapse {
+  justify-content: flex-end; /* Align items to the right */
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-item {
+  padding: 0 1rem; /* Adjust spacing between items */
+}
+
+.nav-link {
+  font-family: "Raleway", sans-serif;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #198ce6; /* Text color */
+  transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+.nav-link:hover {
+  color: #ffffff; /* Text color on hover */
+}
+
+.dropdown-menu {
+  background-color: #1a1e23; /* Background color */
+  border: none; /* Remove border */
+}
+
+.dropdown-item {
+  font-family: "Raleway", sans-serif;
+  font-weight: 700;
+  color: #198ce6; /* Text color */
+  text-transform: uppercase;
+  transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+.dropdown-item:hover {
+  color: #ffffff; /* Text color on hover */
+}
+
+.dropdown-divider {
+  border-top: 1px solid #198ce6; /* Divider color */
+}
+
+.btn {
+  font-size: 1.2rem; /* Button font size */
+  color: #198ce6; /* Button color */
+}
+
+.btn:hover {
+  color: #ffffff; /* Button color on hover */
+}
+
+.form-control {
+  width: 200px; /* Adjust search input width as needed */
+  background-color: #ffffff; /* Input background color */
+  border-color: #198ce6; /* Input border color */
+}
+
+.btn-outline-success {
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.btn-outline-success:hover {
+  background-color: #198ce6;
+  border-color: #198ce6;
+}
+
+.nav-link {
+  font-family: "Raleway", sans-serif;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #198ce6;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #ffffff;
+}
+
+.dropdown-menu {
+  background-color: #1a1e23;
+  border: none;
+}
+
+.dropdown-item {
+  font-family: "Raleway", sans-serif;
+  font-weight: 700;
+  color: #198ce6;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.dropdown-item:hover {
+  color: #ffffff;
+  background-color: #21252a;
+}
+
+.navbar-nav .nav-item .nav-link {
+  color: #198ce6;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+  color: #ffffff;
+}
+.bi-heart-fill,
+.bi-bag-fill {
+  color: #87cefa;
 }
