@@ -8,7 +8,7 @@
 }
 .category-list {
   display: grid;
-  grid-template-columns: repeat(8, 1fr); /* Display items in 3 equal columns */
+  grid-template-columns: repeat(8, 1fr);
   grid-gap: 10px;
 }
 .category-style {
@@ -50,6 +50,7 @@
 .category-style:hover {
   color: #ffffff;
 }
+/* Header */
 header form {
   display: none !important;
 }
@@ -61,7 +62,7 @@ header {
   background: #060708;
 }
 .navbar-collapse {
-  justify-content: flex-end; /* Align items to the right */
+  justify-content: flex-end;
 }
 
 .navbar-nav {
@@ -70,7 +71,7 @@ header {
 }
 
 .nav-item {
-  padding: 0 1rem; /* Adjust spacing between items */
+  padding: 0 1rem;
 }
 
 .nav-link {
@@ -78,48 +79,48 @@ header {
   font-weight: 700;
   text-decoration: none;
   text-transform: uppercase;
-  color: #198ce6; /* Text color */
-  transition: color 0.3s ease; /* Smooth transition for color change */
+  color: #198ce6;
+  transition: color 0.3s ease;
 }
 
 .nav-link:hover {
-  color: #ffffff; /* Text color on hover */
+  color: #ffffff;
 }
 
 .dropdown-menu {
-  background-color: #1a1e23; /* Background color */
-  border: none; /* Remove border */
+  background-color: #1a1e23;
+  border: none;
 }
 
 .dropdown-item {
   font-family: "Raleway", sans-serif;
   font-weight: 700;
-  color: #198ce6; /* Text color */
+  color: #198ce6;
   text-transform: uppercase;
-  transition: color 0.3s ease; /* Smooth transition for color change */
+  transition: color 0.3s ease;
 }
 
 .dropdown-item:hover {
-  color: #ffffff; /* Text color on hover */
+  color: #ffffff;
 }
 
 .dropdown-divider {
-  border-top: 1px solid #198ce6; /* Divider color */
+  border-top: 1px solid #198ce6;
 }
 
 .btn {
-  font-size: 1.2rem; /* Button font size */
-  color: #198ce6; /* Button color */
+  font-size: 1.2rem;
+  color: #198ce6;
 }
 
 .btn:hover {
-  color: #ffffff; /* Button color on hover */
+  color: #ffffff;
 }
 
 .form-control {
-  width: 200px; /* Adjust search input width as needed */
-  background-color: #ffffff; /* Input background color */
-  border-color: #198ce6; /* Input border color */
+  width: 200px;
+  background-color: #ffffff;
+  border-color: #198ce6;
 }
 
 .btn-outline-success {
