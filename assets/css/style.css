@@ -176,3 +176,42 @@ header {
 .bi-bag-fill {
   color: #87cefa;
 }
+/* Footer */
+.footer {
+  background: #000;
+  padding: 30px 0px;
+  font-family: "Play", sans-serif;
+  text-align: center;
+}
+
+.footer .column {
+  width: 100%;
+  margin: 1% 0%;
+  padding: 0.6% 0%;
+  color: gray;
+  font-size: 0.8em;
+}
+
+.footer .column a {
+  text-decoration: none;
+  color: gray;
+  transition: 0.5s;
+}
+
+.footer .column a:hover {
+  color: #fff;
+}
+
+.footer .column ul {
+  width: 100%;
+}
+
+.footer .column ul li {
+  display: inline-block;
+  margin: 0px 30px;
+}
+
+.footer .column a i {
+  font-size: 2em;
+  margin: 0% 1%;
+}
