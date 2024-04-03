@@ -2,9 +2,9 @@ export function initFooter(div) {
   div.innerHTML = `
     <div class="footer">
 <div class="column">
-<a href="#"><i class="bi bi-facebook"></i></a>
-<a href="#"><i class="bi bi-instagram"></i></a>
-<a href="#"><i class="bi bi-twitter-x"></i></a>
+<a href="https://www.facebook.com/gabrini/"><i class="bi bi-facebook"></i></a>
+<a href="https://www.instagram.com/gabrini/"><i class="bi bi-instagram"></i></a>
+<a href="https://twitter.com/gabrini"><i class="bi bi-twitter-x"></i></a>
 
 </div>
 
@@ -19,7 +19,7 @@ export function initFooter(div) {
 </div>
 
 <div class="row d-flex justify-content-center">
-INFERNO Copyright © 2021 Inferno - All rights reserved || Designed By: Mahesh 
+Gabrini Copyright © 2024 Gabrini - All rights reserved 
 </div>
 </div>`;
 }
