@@ -14,56 +14,54 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
+    <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
     <header></header>
 
     <section class="register py-5">
       <div class="container">
-        <div class="card mx-auto w-50">
-          <div class="card-body">
-            <h5 class="card-title">Register</h5>
+        <div class="login-container">
+          <div class="circle circle-one"></div>
+          <div class="form-container">
+            <img
+              src="https://raw.githubusercontent.com/hicodersofficial/glassmorphism-login-form/master/assets/illustration.png"
+              alt="illustration"
+              class="illustration"
+            />
+            <h1 class="opacity" style="color: white">REGISTER</h1>
             <form id="register">
-              <div class="form-group mb-3">
-                <label for="fullname">Fullname</label>
-                <input
-                  type="text"
-                  required
-                  name="fullname"
-                  class="form-control"
-                  id="fullname"
-                  placeholder="John Smith"
-                />
-              </div>
-              <div class="form-group mb-3">
-                <label for="email">Email</label>
-                <input
-                  type="email"
-                  required
-                  name="email"
-                  class="form-control"
-                  id="email"
-                  placeholder="john@smith.com"
-                />
-              </div>
-              <div class="form-group mb-3">
-                <label for="password">Password</label>
-                <input
-                  type="password"
-                  required
-                  name="password"
-                  class="form-control"
-                  id="password"
-                  placeholder="*******"
-                />
-              </div>
-              <button type="submit" class="btn btn-sm btn-outline-primary">
-                Register
-              </button>
-              <a href="login.html" class="btn btn-sm btn-link">Login</a>
+              <input
+                type="text"
+                required
+                name="fullname"
+                class="form-control"
+                id="fullname"
+                placeholder="John Smith"
+              />
+              <input
+                type="email"
+                name="email"
+                class="form-control"
+                id="email"
+                placeholder="john@smith.com"
+              />
+              <input
+                type="password"
+                name="password"
+                class="form-control"
+                id="password"
+                placeholder="*******"
+              />
+              <button class="opacity">REGISTER</button>
             </form>
+            <div class="register-forget opacity">
+              <a href="login.html">LOGIN</a>
+            </div>
           </div>
+          <div class="circle circle-two"></div>
         </div>
+        <div class="theme-btn-container"></div>
       </div>
     </section>
 

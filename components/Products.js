@@ -50,12 +50,9 @@ export function composeProducts(products, limit = null) {
 document.addEventListener("click", function (event) {
   if (event.target.classList.contains("addToFavorites")) {
     event.preventDefault();
-
-    // Retrieve product ID from data attribute
     const productId = event.target.dataset.productId;
 
     if (productId) {
-      // Fetch product data from the API
       fetch(`http://makeup-api.herokuapp.com/api/v1/products/${productId}.json`)
         .then((response) => {
           if (!response.ok) {
@@ -90,12 +87,9 @@ function addToFavorites(product) {
 document.addEventListener("click", function (event) {
   if (event.target.classList.contains("addToBag")) {
     event.preventDefault();
-
-    // Retrieve product ID from data attribute
     const productId = event.target.dataset.productId;
 
     if (productId) {
-      // Fetch product data from the API
       fetch(`http://makeup-api.herokuapp.com/api/v1/products/${productId}.json`)
         .then((response) => {
           if (!response.ok) {
@@ -139,12 +133,55 @@ export function getUniqueCategories(products) {
 export function composeCategoryList(categories, products) {
   let html = '<div class="category-list">';
   categories.forEach((category) => {
-    html += `<div class="category-style" data-category="${category}" >${category}</div>`;
+    if (category !== null && category !== undefined && category.trim() !== "") {
+      html += `<div class="category-style" data-category="${category}" >
+        <div id="button-container">
+          <button class="primary-button">
+            ${category}
+            <span class="round" />
+          </button>
+        </div>
+      </div>`;
+    }
   });
   html += "</div>";
 
   const container = document.createElement("div");
   container.innerHTML = html;
+
+  container.querySelectorAll(".primary-button").forEach((button) => {
+    const item = button.querySelector(".round");
+    button.addEventListener("mouseenter", function (event) {
+      this.classList.add("animate");
+
+      let buttonX = event.offsetX;
+      let buttonY = event.offsetY;
+
+      if (buttonY < 24) {
+        item.style.top = 0 + "px";
+      } else if (buttonY > 30) {
+        item.style.top = 48 + "px";
+      }
+
+      item.style.left = buttonX + "px";
+      item.style.width = "1px";
+      item.style.height = "1px";
+    });
+
+    button.addEventListener("mouseleave", function (event) {
+      this.classList.remove("animate");
+
+      let buttonX = event.offsetX;
+      let buttonY = event.offsetY;
+
+      if (buttonY < 24) {
+        item.style.top = 0 + "px";
+      } else if (buttonY > 30) {
+        item.style.top = 48 + "px";
+      }
+      item.style.left = buttonX + "px";
+    });
+  });
 
   container.querySelectorAll(".category-style").forEach((categoryElement) => {
     categoryElement.addEventListener("click", () => {
